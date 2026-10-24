@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Constructors Assignment | Surya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: white;
+      background: #2563eb;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+    .nav-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+    .header-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .header-card h1 {
+      font-size: 32px;
+      color: #60a5fa;
+      margin-bottom: 10px;
+    }
+    .header-card p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .tabs-wrapper {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      scrollbar-width: thin;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .tab-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #60a5fa;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    .program-view {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .program-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .info-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 25px;
+    }
+    .info-card h2 {
+      font-size: 20px;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+    .info-card p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .info-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tag {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .code-window {
+      background: #1e1e1e;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .window-header {
+      background: #2d3748;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #475569;
+    }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .file-name {
+      font-family: 'Fira Code', monospace;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .window-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .action-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .action-btn:hover {
+      background: #2563eb;
+    }
+    .action-btn.secondary {
+      background: #475569;
+    }
+    .action-btn.secondary:hover {
+      background: #64748b;
+    }
+    pre[class*="language-"] {
+      margin: 0 !important;
+      padding: 20px !important;
+      background: #1e1e1e !important;
+      font-family: 'Fira Code', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+    code[class*="language-"] {
+      font-family: 'Fira Code', monospace !important;
+    }
+    .terminal-window {
+      background: #090d16;
+      border-radius: 14px;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .terminal-header {
+      background: #111827;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-bottom: 1px solid #1f2937;
+    }
+    .terminal-body {
+      padding: 18px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #4ade80;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .terminal-prompt {
+      color: #60a5fa;
+    }
+    .footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="top-nav">
+      <a href="../index/main.html" class="nav-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to All Projects
+      </a>
+      <a href="../index.html" class="nav-btn">
+        <i class="fa-solid fa-house"></i> Portfolio Home
+      </a>
+    </div>
+
+    <div class="header-card">
+      <h1><i class="fa-brands fa-java"></i> Java Constructor Assignments</h1>
+      <p>Source code written by Surya for Backend Course Java Constructor Assignment. Demonstrating Default Constructors, Parameterized Constructors, Constructor Overloading, and Copy Constructors.</p>
+    </div>
+
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" onclick="switchTab('student')">
+        <i class="fa-solid fa-user-graduate"></i> 1. Student (Default Values)
+      </button>
+      <button class="tab-btn" onclick="switchTab('bankaccount')">
+        <i class="fa-solid fa-piggy-bank"></i> 2. Bank Account (No-Arg)
+      </button>
+      <button class="tab-btn" onclick="switchTab('employee')">
+        <i class="fa-solid fa-id-badge"></i> 3. Employee (Parameterized)
+      </button>
+      <button class="tab-btn" onclick="switchTab('product')">
+        <i class="fa-solid fa-box-open"></i> 4. Product (Overloading)
+      </button>
+      <button class="tab-btn" onclick="switchTab('studentrecords')">
+        <i class="fa-solid fa-clone"></i> 5. Student Records (Copy Constructor)
+      </button>
+    </div>
+
+    <!-- 1. STUDENT -->
+    <div id="student" class="program-view active">
+      <div class="info-card">
+        <h2>Assignment 1: Default Values & Default Constructor</h2>
+        <p><strong>Scenario:</strong> A college wants to register a student with default information when no details are provided.</p>
+        <p><strong>Concept:</strong> Demonstrates that Java assigns default values (0 for int, null for String) to instance variables when no explicit constructor is defined.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> Student.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.javaExercise</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Default Values Demo</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> Student.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-student')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="Student.java" download="Student.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-student" class="language-java">package com.javaExercise;
+
+public class Student {
+    int studentId;
+    String studentName;
+    String course;
+
+    void displayDetails() {
+        System.out.println("ID: " + studentId);
+        System.out.println("Name: " + studentName);
+        System.out.println("Course: " + course);
+    }
+
+    public static void main(String[] args) {
+        Student obj = new Student();
+        obj.displayDetails();
+        
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Output)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . Student.java && java com.javaExercise.Student</span>
+ID: 0
+Name: null
+Course: null</div>
+      </div>
+    </div>
+
+    <!-- 2. BANK ACCOUNT -->
+    <div id="bankaccount" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 2: No-Argument Constructor Initializing Fields</h2>
+        <p><strong>Scenario:</strong> A bank automatically creates a savings account with predefined initial details.</p>
+        <p><strong>Concept:</strong> Demonstrates a user-defined no-argument constructor that explicitly initializes accountnumber = 0, name = "unknown", and balance = 0.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> BackAccount.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.javaExercise</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> No-Arg Constructor</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> BackAccount.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-bankaccount')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="BackAccount.java" download="BackAccount.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-bankaccount" class="language-java">package com.javaExercise;
+
+public class BackAccount {
+	int accountnumber;
+	String name;
+	int balance;
+BackAccount(){
+	accountnumber = 0;
+	name = "unknown";
+	balance = 0;
+}
+	void displayAccount() {
+		System.out.println("Account Number : " + accountnumber);
+		System.out.println("Name : " + name);
+		System.out.println("Balance :" + balance);
+		
+	}
+	
+
+	public static void main(String[] args) {
+		
+		BackAccount obj = new BackAccount();
+		BackAccount obj1 = new BackAccount();
+		BackAccount obj2 = new BackAccount();
+		
+	
+		obj.displayAccount();
+		obj1.displayAccount();
+		obj2.displayAccount();
+
+	}
+
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Output)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . BackAccount.java && java com.javaExercise.BackAccount</span>
+Account Number : 0
+Name : unknown
+Balance :0
+Account Number : 0
+Name : unknown
+Balance :0
+Account Number : 0
+Name : unknown
+Balance :0</div>
+      </div>
+    </div>
+
+    <!-- 3. EMPLOYEE -->
+    <div id="employee" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 3: Parameterized Constructor & Salary Calculation</h2>
+        <p><strong>Scenario:</strong> A company needs to store different employee details when each employee joins.</p>
+        <p><strong>Concept:</strong> Demonstrates a parameterized constructor accepting (employeeId, employeeName, salary) and using the <code>this</code> keyword, plus calculating annual salary.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> Employee.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.javaExercise</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Parameterized Constructor</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> Employee.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-employee')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="Employee.java" download="Employee.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-employee" class="language-java">package com.javaExercise;
+
+public class Employee {
+	 int employeeId;
+	 String employeeName;
+	 double salary;
+
+	 Employee(int employeeId, String employeeName,double salary){
+		 this.employeeId   = employeeId;
+		 this.employeeName = employeeName;
+		 this.salary 	   = salary;
+	 }
+	 void calculateAnnualSalary() {
+		 double annualSalary = salary * 12;
+		 System.out.println("employee Id : "   		 + employeeId);
+		 System.out.println("employee Name : " 		 + employeeName);
+		 System.out.println("salary : "       		 + salary);
+		 System.out.println("Annual Salary : "       + annualSalary);
+		 
+	 }
+	 
+	public static void main(String[] args) {
+		Employee Emp1  = new Employee(101, "Kim chae-young", 20001);
+		Employee Emp2 = new Employee(102, "Lee Ji-min"    , 30001);
+		Employee Emp3 = new Employee(103, "Kim Chae-won"  , 40001);
+		
+		Emp1.calculateAnnualSalary();
+		Emp2.calculateAnnualSalary();
+		Emp3.calculateAnnualSalary();
+
+	}
+
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Output)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . Employee.java && java com.javaExercise.Employee</span>
+employee Id : 101
+employee Name : Kim chae-young
+salary : 20001.0
+Annual Salary : 240012.0
+employee Id : 102
+employee Name : Lee Ji-min
+salary : 30001.0
+Annual Salary : 360012.0
+employee Id : 103
+employee Name : Kim Chae-won
+salary : 40001.0
+Annual Salary : 480012.0</div>
+      </div>
+    </div>
+
+    <!-- 4. PRODUCT -->
+    <div id="product" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 4: Constructor Overloading</h2>
+        <p><strong>Scenario:</strong> An online shopping application allows products to be created with different levels of information.</p>
+        <p><strong>Concept:</strong> Demonstrates constructor overloading with 3 distinct constructors: default no-arg, 2-arg (id, name), and 3-arg (id, name, price).</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> Product.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.javaExercise</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Constructor Overloading</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> Product.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-product')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="Product.java" download="Product.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-product" class="language-java">package com.javaExercise;
+
+public class Product {
+
+    int productId;
+    String productName;
+    double price;
+
+    Product() {
+        productId = 0;
+        productName = "Unknown";
+        price = 0.0;
+    }
+
+    Product(int productId, String productName) {
+        this.productId = productId;
+        this.productName = productName;
+        price = 0.0;
+    }
+
+    Product(int productId, String productName, double price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+    }
+
+    void displayDetails() {
+        System.out.println("Product ID: " + productId);
+        System.out.println("Product Name: " + productName);
+        System.out.println("Price: " + price);
+        System.out.println("                  ");
+    }
+
+    public static void main(String[] args) {
+
+        Product p1 = new Product();
+        Product p2 = new Product(101, "Laptop");
+        Product p3 = new Product(102, "Headphones", 2500);
+
+        p1.displayDetails();
+        p2.displayDetails();
+        p3.displayDetails();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Output)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . Product.java && java com.javaExercise.Product</span>
+Product ID: 0
+Product Name: Unknown
+Price: 0.0
+                  
+Product ID: 101
+Product Name: Laptop
+Price: 0.0
+                  
+Product ID: 102
+Product Name: Headphones
+Price: 2500.0</div>
+      </div>
+    </div>
+
+    <!-- 5. STUDENT RECORDS -->
+    <div id="studentrecords" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 5: Copy Constructor</h2>
+        <p><strong>Scenario:</strong> A school needs to create a new student record by copying the details of an existing student.</p>
+        <p><strong>Concept:</strong> Demonstrates a Copy Constructor that accepts another <code>StudentRecords</code> object and copies its values, proving that modifying the copied object's marks does not alter the original student's marks.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> StudentRecords.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.javaExercise</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Copy Constructor</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> StudentRecords.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-studentrecords')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="StudentRecords.java" download="StudentRecords.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-studentrecords" class="language-java">package com.javaExercise;
+
+public class StudentRecords {
+
+    int rollNumber;
+    String studentName;
+    double marks;
+
+    StudentRecords(int rollNumber, String studentName, double marks) {
+        this.rollNumber = rollNumber;
+        this.studentName = studentName;
+        this.marks = marks;
+    }
+
+    StudentRecords(StudentRecords student) {
+        this.rollNumber = student.rollNumber;
+        this.studentName = student.studentName;
+        this.marks = student.marks;
+    }
+
+    void displayDetails() {
+        System.out.println("Roll Number: " + rollNumber);
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Marks: " + marks);
+        System.out.println("                  ");
+    }
+
+    public static void main(String[] args) {
+
+        StudentRecords s1 = new StudentRecords(101, "Arun", 85);
+        StudentRecords s2 = new StudentRecords(s1);
+
+        s2.marks = 95;
+
+        System.out.println("Original Student:");
+        s1.displayDetails();
+
+        System.out.println("Copied Student:");
+        s2.displayDetails();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Output)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . StudentRecords.java && java com.javaExercise.StudentRecords</span>
+Original Student:
+Roll Number: 101
+Student Name: Arun
+Marks: 85.0
+                  
+Copied Student:
+Roll Number: 101
+Student Name: Arun
+Marks: 95.0</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 Surya | Java Backend Development • Java Constructors Assignment
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">Code copied to clipboard!</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.program-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const targetView = document.getElementById(tabId);
+      if (targetView) {
+        targetView.classList.add('active');
+      }
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      const tabs = ['student', 'bankaccount', 'employee', 'product', 'studentrecords'];
+      const index = tabs.indexOf(tabId);
+      if (index !== -1 && buttons[index]) {
+        buttons[index].classList.add('active');
+      }
+
+      window.location.hash = tabId;
+    }
+
+    function copyCode(elementId) {
+      const codeElement = document.getElementById(elementId);
+      if (codeElement) {
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+          showToast('Code copied to clipboard!');
+        }).catch(err => {
+          showToast('Failed to copy code.');
+        });
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    function handleRoute() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileParam = urlParams.get('file');
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      const target = fileParam ? fileParam.toLowerCase() : hash;
+      
+      const validTabs = ['student', 'bankaccount', 'employee', 'product', 'studentrecords'];
+      if (target && validTabs.includes(target)) {
+        switchTab(target);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleRoute);
+    window.addEventListener('hashchange', handleRoute);
+  </script>
+</body>
+</html>

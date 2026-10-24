@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surya | Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <style>
+      *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#0f172a,#2563eb,#7c3aed,#0ea5e9);
+    background-size:400% 400%;
+    animation:bg 10s ease infinite;
+}
+
+@keyframes bg{
+
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+
+}
+
+.container{
+
+    width:90%;
+    max-width:1200px;
+    text-align:center;
+}
+
+h1{
+
+    color:white;
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.subtitle{
+
+    color:#e2e8f0;
+    margin-bottom:50px;
+    font-size:18px;
+}
+
+.cards{
+
+    display:flex;
+    justify-content:center;
+    gap:35px;
+    flex-wrap:wrap;
+}
+
+.card{
+
+    width:320px;
+    padding:35px;
+    border-radius:20px;
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(12px);
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.4s;
+
+    border:1px solid rgba(255,255,255,.2);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+
+.card:hover{
+
+    transform:translateY(-15px) scale(1.03);
+
+    background:white;
+
+    color:#222;
+
+}
+
+.icon{
+
+    width:90px;
+    height:90px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:40px;
+
+    background:white;
+
+    color:#2563eb;
+
+    margin-bottom:25px;
+
+}
+
+.card:hover .icon{
+
+    background:#2563eb;
+    color:white;
+}
+
+.card h2{
+
+    margin-bottom:15px;
+}
+
+.card p{
+
+    line-height:1.7;
+    font-size:15px;
+    margin-bottom:30px;
+}
+
+button{
+
+    border:none;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:12px 28px;
+
+    border-radius:30px;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.card:hover button{
+
+    background:#111827;
+
+}
+
+footer{
+
+    margin-top:60px;
+
+    color:white;
+
+    font-size:15px;
+}
+
+@media(max-width:900px){
+
+.cards{
+
+    flex-direction:column;
+    align-items:center;
+
+}
+}
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <h1>My Portfolio</h1>
+
+      <p class="subtitle">
+        HTML • CSS • JavaScript • Java
+      </p>
+
+      <div class="cards">
+
+      <a href="index/main.html" class="card">
+
+      <div class="icon">
+        <i class="fa-solid fa-folder-open"></i>
+      </div>
+
+      <h2>My Projects</h2>
+
+      <p>
+        Explore all my daily projects completed during my Java Full Stack course,
+        including HTML, CSS, JavaScript and future Java applications.
+      </p>
+
+      <button>View Projects</button>
+
+      </a>
+
+      <a href="https://github.com/SuryaV1980" target="_blank" class="card">
+
+        <div class="icon">
+          <i class="fa-brands fa-github"></i>
+        </div>
+
+        <h2>GitHub</h2>
+
+        <p>
+          Browse my source code, assignments, practice programs,
+          and personal web development projects.
+        </p>
+
+        <button>Open GitHub</button>
+
+    </a>
+
+     <a href="https://www.linkedin.com/in/surya-v-a25659219/" target="_blank" class="card">
+
+      <div class="icon">
+        <i class="fa-brands fa-linkedin"></i>
+      </div>
+
+      <h2>LinkedIn</h2>
+
+      <p>
+        Visit my professional profile to learn more about my education,
+        skills and career journey.
+      </p>
+
+      <button>Connect</button>
+
+      </a>
+
+    </div>
+
+    <footer>
+
+    © 2026 Surya | Designed with HTML & CSS
+
+    </footer>
+
+    </div>
+
+  </body>
+</html>
