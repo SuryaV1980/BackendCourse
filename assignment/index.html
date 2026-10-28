@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Array Assignment | Surya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: white;
+      background: #2563eb;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+    .nav-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+    .header-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .header-card h1 {
+      font-size: 32px;
+      color: #60a5fa;
+      margin-bottom: 10px;
+    }
+    .header-card p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .tabs-wrapper {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      scrollbar-width: thin;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .tab-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #60a5fa;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    .program-view {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .program-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .info-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 25px;
+    }
+    .info-card h2 {
+      font-size: 20px;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+    .info-card p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .info-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tag {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .code-window {
+      background: #1e1e1e;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .window-header {
+      background: #2d3748;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #475569;
+    }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .file-name {
+      font-family: 'Fira Code', monospace;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .window-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .action-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .action-btn:hover {
+      background: #2563eb;
+    }
+    .action-btn.secondary {
+      background: #475569;
+    }
+    .action-btn.secondary:hover {
+      background: #64748b;
+    }
+    pre[class*="language-"] {
+      margin: 0 !important;
+      padding: 20px !important;
+      background: #1e1e1e !important;
+      font-family: 'Fira Code', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+    code[class*="language-"] {
+      font-family: 'Fira Code', monospace !important;
+    }
+    .terminal-window {
+      background: #090d16;
+      border-radius: 14px;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .terminal-header {
+      background: #111827;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-bottom: 1px solid #1f2937;
+    }
+    .terminal-body {
+      padding: 18px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #4ade80;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .terminal-prompt {
+      color: #60a5fa;
+    }
+    .footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="top-nav">
+      <a href="../index/main.html" class="nav-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to All Projects
+      </a>
+      <a href="../index.html" class="nav-btn">
+        <i class="fa-solid fa-house"></i> Portfolio Home
+      </a>
+    </div>
+
+    <div class="header-card">
+      <h1><i class="fa-brands fa-java"></i> Java Array Assignments</h1>
+      <p>Source code written by Surya for Backend Course Java Array Operations Assignment. Demonstrating array traversal, accumulation, conditional filtering, and min/max algorithms using Scanner input.</p>
+    </div>
+
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" onclick="switchTab('average')">
+        <i class="fa-solid fa-calculator"></i> 1. Array Average
+      </button>
+      <button class="tab-btn" onclick="switchTab('evenodd')">
+        <i class="fa-solid fa-filter"></i> 2. Even & Odd Count
+      </button>
+      <button class="tab-btn" onclick="switchTab('largest')">
+        <i class="fa-solid fa-arrow-up-right-dots"></i> 3. Largest Number
+      </button>
+      <button class="tab-btn" onclick="switchTab('numbercount')">
+        <i class="fa-solid fa-chart-pie"></i> 4. Positive, Negative & Zero
+      </button>
+      <button class="tab-btn" onclick="switchTab('smallest')">
+        <i class="fa-solid fa-arrow-down-short-wide"></i> 5. Smallest Number
+      </button>
+    </div>
+
+    <!-- 1. ARRAY AVERAGE -->
+    <div id="average" class="program-view active">
+      <div class="info-card">
+        <h2>Assignment 1: Array Sum & Average</h2>
+        <p><strong>Task:</strong> Take array size and integer elements from the user via Scanner, compute the total sum and floating-point average of all numbers.</p>
+        <p><strong>Concept:</strong> Array creation with dynamic size <code>new int[n]</code>, loop accumulation, and type casting <code>(double) sum / n</code> for precision.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> ArrayAverage.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Sum & Average</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> ArrayAverage.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-average')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="ArrayAverage.java" download="ArrayAverage.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-average" class="language-java">package com.java.assignment;
+
+import java.util.Scanner;
+
+public class ArrayAverage {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the Array Size:");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        System.out.println("Enter the Elements:");
+
+        for (int a = 0; a < n; a++) {
+            arr[a] = sc.nextInt();
+        }
+
+        int sum = 0;
+
+        for (int a = 0; a < n; a++) {
+            sum = sum + arr[a];
+        }
+
+        double average = (double) sum / n;
+
+        System.out.println("Sum = " + sum);
+        System.out.println("Average = " + average);
+
+        sc.close();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . ArrayAverage.java && java com.java.assignment.ArrayAverage</span>
+Enter the Array Size:
+5
+Enter the Elements:
+10 20 30 40 50
+Sum = 150
+Average = 30.0</div>
+      </div>
+    </div>
+
+    <!-- 2. EVEN ODD COUNT -->
+    <div id="evenodd" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 2: Count Even and Odd Numbers</h2>
+        <p><strong>Task:</strong> Traverse an input integer array and determine how many elements are even vs. odd.</p>
+        <p><strong>Concept:</strong> Modulo operator <code>arr[a] % 2 == 0</code> inside an array traversal loop to categorize numbers.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> EvenOddCount.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Conditional Counting</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> EvenOddCount.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-evenodd')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="EvenOddCount.java" download="EvenOddCount.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-evenodd" class="language-java">package com.java.assignment;
+
+import java.util.Scanner;
+
+public class EvenOddCount {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the Array Size:");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        System.out.println("Enter the Elements:");
+
+        for (int a = 0; a < n; a++) {
+            arr[a] = sc.nextInt();
+        }
+
+        int even = 0;
+        int odd = 0;
+
+        for (int a = 0; a < n; a++) {
+            if (arr[a] % 2 == 0) {
+                even++;
+            } else {
+                odd++;
+            }
+        }
+
+        System.out.println("Even Numbers Count = " + even);
+        System.out.println("Odd Numbers Count = " + odd);
+
+        sc.close();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . EvenOddCount.java && java com.java.assignment.EvenOddCount</span>
+Enter the Array Size:
+6
+Enter the Elements:
+1 2 3 4 5 6
+Even Numbers Count = 3
+Odd Numbers Count = 3</div>
+      </div>
+    </div>
+
+    <!-- 3. LARGEST NUMBER -->
+    <div id="largest" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 3: Find Largest Number in an Array</h2>
+        <p><strong>Task:</strong> Find the maximum element in an array populated from user input.</p>
+        <p><strong>Concept:</strong> Initializing <code>largest = arr[0]</code> and performing sequential comparison against each remaining element.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> LargestNumber.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Max Element Search</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> LargestNumber.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-largest')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="LargestNumber.java" download="LargestNumber.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-largest" class="language-java">// Write a program to find the largest number in an array
+
+package com.java.assignment;
+import java.util.Scanner;
+
+public class LargestNumber {
+	public static void main(String[] args) {
+//		Read input from the keyboard
+		Scanner sc = new Scanner(System.in);
+		
+//		Ask for the Array Size
+		System.out.println("Enter the Array Size: ");
+		int n = sc.nextInt();
+//		Create a array 
+		int[] arr = new int[n];
+//		Ask for the element 
+		System.out.println("Enter the Element: ");
+//		Store each element in the array
+		for(int a = 0; a < n; a++) {
+			arr[a] = sc.nextInt();	
+		}
+//		Logic
+		int largest = arr[0];
+		for(int a = 0; a < n; a++)
+		{
+			 if (arr[a] > largest) {
+	                largest = arr[a];
+	            }
+		}
+		 System.out.println("Largest Element = " + largest);
+
+	        sc.close();
+
+	}
+
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . LargestNumber.java && java com.java.assignment.LargestNumber</span>
+Enter the Array Size: 
+4
+Enter the Element: 
+12 45 7 23
+Largest Element = 45</div>
+      </div>
+    </div>
+
+    <!-- 4. NUMBER COUNT -->
+    <div id="numbercount" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 4: Count Positive, Negative, and Zero Values</h2>
+        <p><strong>Task:</strong> Read an array of numbers and tally how many elements are positive (> 0), negative (< 0), and zeros (== 0).</p>
+        <p><strong>Concept:</strong> Multi-branch decision logic <code>if - else if - else</code> across array elements.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> NumberCount.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Sign Classification</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> NumberCount.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-numbercount')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="NumberCount.java" download="NumberCount.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-numbercount" class="language-java">package com.java.assignment;
+
+import java.util.Scanner;
+
+public class NumberCount {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the Array Size:");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        System.out.println("Enter the Elements:");
+
+        for (int a = 0; a < n; a++) {
+            arr[a] = sc.nextInt();
+        }
+
+        int positive = 0;
+        int negative = 0;
+        int zero = 0;
+
+        for (int a = 0; a < n; a++) {
+            if (arr[a] > 0) {
+                positive++;
+            } else if (arr[a] < 0) {
+                negative++;
+            } else {
+                zero++;
+            }
+        }
+
+        System.out.println("Positive Numbers = " + positive);
+        System.out.println("Negative Numbers = " + negative);
+        System.out.println("Zeros = " + zero);
+
+        sc.close();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . NumberCount.java && java com.java.assignment.NumberCount</span>
+Enter the Array Size:
+5
+Enter the Elements:
+10 -5 0 25 -8
+Positive Numbers = 2
+Negative Numbers = 2
+Zeros = 1</div>
+      </div>
+    </div>
+
+    <!-- 5. SMALLEST NUMBER -->
+    <div id="smallest" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 5: Find Smallest Number in an Array</h2>
+        <p><strong>Task:</strong> Find the minimum element in an array of integers.</p>
+        <p><strong>Concept:</strong> Initializing <code>smallest = arr[0]</code> and iterating starting from index <code>1</code> to find the minimum.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> SmallestNumber.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Min Element Search</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> SmallestNumber.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-smallest')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="SmallestNumber.java" download="SmallestNumber.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-smallest" class="language-java">package com.java.assignment;
+
+import java.util.Scanner;
+
+public class SmallestNumber {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the Array Size:");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        System.out.println("Enter the Elements:");
+
+        for (int a = 0; a < n; a++) {
+            arr[a] = sc.nextInt();
+        }
+
+        int smallest = arr[0];
+
+        for (int a = 1; a < n; a++) {
+            if (arr[a] < smallest) {
+                smallest = arr[a];
+            }
+        }
+
+        System.out.println("Smallest Element = " + smallest);
+
+        sc.close();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . SmallestNumber.java && java com.java.assignment.SmallestNumber</span>
+Enter the Array Size:
+4
+Enter the Elements:
+15 3 99 42
+Smallest Element = 3</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 Surya | Java Backend Development • Java Array Assignments
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">Code copied to clipboard!</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.program-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const targetView = document.getElementById(tabId);
+      if (targetView) {
+        targetView.classList.add('active');
+      }
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      const tabs = ['average', 'evenodd', 'largest', 'numbercount', 'smallest'];
+      const index = tabs.indexOf(tabId);
+      if (index !== -1 && buttons[index]) {
+        buttons[index].classList.add('active');
+      }
+
+      window.location.hash = tabId;
+    }
+
+    function copyCode(elementId) {
+      const codeElement = document.getElementById(elementId);
+      if (codeElement) {
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+          showToast('Code copied to clipboard!');
+        }).catch(err => {
+          showToast('Failed to copy code.');
+        });
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    function handleRoute() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileParam = urlParams.get('file');
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      const target = fileParam ? fileParam.toLowerCase() : hash;
+      
+      const validTabs = ['average', 'evenodd', 'largest', 'numbercount', 'smallest'];
+      if (target && validTabs.includes(target)) {
+        switchTab(target);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleRoute);
+    window.addEventListener('hashchange', handleRoute);
+  </script>
+</body>
+</html>
