@@ -18,13 +18,13 @@ Welcome to my Java Full Stack Backend course repository!
 - [`StudentRecords.java`](Constructor/StudentRecords.java) — Copy constructor creating independent object copies.
 - 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/Constructor/index.html)
 
-### 2. [Java Array Assignments (`assignment/`)](assignment/)
-- [`ArrayAverage.java`](assignment/ArrayAverage.java) — Computes sum and average of user-inputted array elements.
-- [`EvenOddCount.java`](assignment/EvenOddCount.java) — Counts occurrences of even and odd numbers.
-- [`LargestNumber.java`](assignment/LargestNumber.java) — Finds the maximum element in an array.
-- [`NumberCount.java`](assignment/NumberCount.java) — Tallies positive, negative, and zero values.
-- [`SmallestNumber.java`](assignment/SmallestNumber.java) — Finds the minimum element in an array.
-- 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/assignment/index.html)
+### 2. [Java Control Statements Assignments (`Control Statement/`)](Control%20Statement/)
+- [`ATM.java`](Control%20Statement/ATM.java) — ATM withdrawal simulation using nested `if-else` verification.
+- [`ElectricityBill.java`](Control%20Statement/ElectricityBill.java) — Progressive slab energy rate calculation using `if - else if - else` ladder.
+- [`LoginAttempt.java`](Control%20Statement/LoginAttempt.java) — User login with max 3 attempts using `while` loop and `break`.
+- [`SkipMultiples.java`](Control%20Statement/SkipMultiples.java) — Iteration from 1 to 30 skipping multiples of 3 using `for` loop and `continue`.
+- [`StudentGrade.java`](Control%20Statement/StudentGrade.java) — Range-based student grade evaluation with boundary validation.
+- 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/Control%20Statement/index.html)
 
 ### 3. [Java Methods Assignments (`Method/`)](Method/)
 - [`EmployeeSalary.java`](Method/EmployeeSalary.java) — Calculates gross and net salary using parameterized methods.
@@ -33,6 +33,14 @@ Welcome to my Java Full Stack Backend course repository!
 - [`ElectricityBill.java`](Method/ElectricityBill.java) — Progressive slab energy rate calculation and fixed charge addition.
 - [`BankOperations.java`](Method/BankOperations.java) — Stateful bank operations (deposit, withdraw, balance check, transaction summary).
 - 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/Method/index.html)
+
+### 4. [Java Array Assignments (`assignment/`)](assignment/)
+- [`ArrayAverage.java`](assignment/ArrayAverage.java) — Computes sum and average of user-inputted array elements.
+- [`EvenOddCount.java`](assignment/EvenOddCount.java) — Counts occurrences of even and odd numbers.
+- [`LargestNumber.java`](assignment/LargestNumber.java) — Finds the maximum element in an array.
+- [`NumberCount.java`](assignment/NumberCount.java) — Tallies positive, negative, and zero values.
+- [`SmallestNumber.java`](assignment/SmallestNumber.java) — Finds the minimum element in an array.
+- 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/assignment/index.html)
 
 ---
 
