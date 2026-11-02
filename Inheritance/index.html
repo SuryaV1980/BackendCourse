@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Inheritance Assignment | Surya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: white;
+      background: #2563eb;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+    .nav-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+    .header-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .header-card h1 {
+      font-size: 32px;
+      color: #60a5fa;
+      margin-bottom: 10px;
+    }
+    .header-card p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .tabs-wrapper {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      scrollbar-width: thin;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .tab-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #60a5fa;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    .program-view {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .program-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .info-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 25px;
+    }
+    .info-card h2 {
+      font-size: 20px;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+    .info-card p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .info-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tag {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .code-window {
+      background: #1e1e1e;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .window-header {
+      background: #2d3748;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #475569;
+    }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .file-name {
+      font-family: 'Fira Code', monospace;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .window-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .action-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .action-btn:hover {
+      background: #2563eb;
+    }
+    .action-btn.secondary {
+      background: #475569;
+    }
+    .action-btn.secondary:hover {
+      background: #64748b;
+    }
+    pre[class*="language-"] {
+      margin: 0 !important;
+      padding: 20px !important;
+      background: #1e1e1e !important;
+      font-family: 'Fira Code', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+    code[class*="language-"] {
+      font-family: 'Fira Code', monospace !important;
+    }
+    .terminal-window {
+      background: #090d16;
+      border-radius: 14px;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .terminal-header {
+      background: #111827;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-bottom: 1px solid #1f2937;
+    }
+    .terminal-body {
+      padding: 18px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #4ade80;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .terminal-prompt {
+      color: #60a5fa;
+    }
+    .footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="top-nav">
+      <a href="../index/main.html" class="nav-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to All Projects
+      </a>
+      <a href="../index.html" class="nav-btn">
+        <i class="fa-solid fa-house"></i> Portfolio Home
+      </a>
+    </div>
+
+    <div class="header-card">
+      <h1><i class="fa-brands fa-java"></i> Java Inheritance Assignments</h1>
+      <p>Source code written by Surya for Backend Course Java Inheritance Assignment. Demonstrating Object-Oriented Inheritance (`extends`), Subclass specialization, Field reuse, and Superclass method inheritance.</p>
+    </div>
+
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" onclick="switchTab('employee')">
+        <i class="fa-solid fa-users-gear"></i> 1. Employee Hierarchy (Developer & Tester)
+      </button>
+      <button class="tab-btn" onclick="switchTab('vehicle')">
+        <i class="fa-solid fa-car-side"></i> 2. Vehicle Hierarchy (Car & Bike)
+      </button>
+    </div>
+
+    <!-- 1. EMPLOYEE DETAILS -->
+    <div id="employee" class="program-view active">
+      <div class="info-card">
+        <h2>Assignment 1: Hierarchical Inheritance - Employee, Developer & Tester</h2>
+        <p><strong>Scenario:</strong> Model an organization structure where <code>Developer</code> and <code>Tester</code> inherit common fields (<code>name</code>, <code>salary</code>) and behaviour (<code>displayDetails()</code>) from a base <code>Employee</code> class.</p>
+        <p><strong>Inheritance Concept:</strong> Hierarchical Inheritance with <code>class Developer extends Employee</code> and <code>class Tester extends Employee</code>. Subclasses add specialized fields (<code>programmingLanguage</code>, <code>testingTool</code>) while reusing base class methods.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> EmployeeDetails.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.Assignment2</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Hierarchical Inheritance</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> EmployeeDetails.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-employee')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="EmployeeDetails.java" download="EmployeeDetails.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-employee" class="language-java">package com.java.Assignment2;
+
+class Employee {
+    String name;
+    double salary;
+
+    void displayDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Salary: " + salary);
+    }
+}
+
+class Developer extends Employee {
+    String programmingLanguage;
+
+    void displayDeveloper() {
+        displayDetails();
+        System.out.println("Programming Language: " + programmingLanguage);
+    }
+}
+
+class Tester extends Employee {
+    String testingTool;
+
+    void displayTester() {
+        displayDetails();
+        System.out.println("Testing Tool: " + testingTool);
+    }
+}
+
+public class EmployeeDetails {
+    public static void main(String[] args) {
+        Developer dev = new Developer();
+        dev.name = "Kim Min-jun";
+        dev.salary = 40000;
+        dev.programmingLanguage = "Java";
+
+        Tester test = new Tester();
+        test.name = "Park Seo-yeon";
+        test.salary = 35000;
+        test.testingTool = "Selenium";
+
+        dev.displayDeveloper();
+        System.out.println();
+
+        test.displayTester();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . EmployeeDetails.java && java com.java.Assignment2.EmployeeDetails</span>
+Name: Kim Min-jun
+Salary: 40000.0
+Programming Language: Java
+
+Name: Park Seo-yeon
+Salary: 35000.0
+Testing Tool: Selenium</div>
+      </div>
+    </div>
+
+    <!-- 2. VEHICLE DETAILS -->
+    <div id="vehicle" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 2: Method Inheritance - Vehicle, Car & Bike</h2>
+        <p><strong>Scenario:</strong> Define generic vehicle behaviours (<code>start()</code>, <code>stop()</code>) in a base <code>Vehicle</code> class, and extend them in <code>Car</code> and <code>Bike</code> subclasses.</p>
+        <p><strong>Inheritance Concept:</strong> Subclasses <code>Car</code> and <code>Bike</code> automatically inherit methods <code>start()</code> and <code>stop()</code> from parent <code>Vehicle</code> without re-writing code, fulfilling fundamental DRY (Don't Repeat Yourself) OOP principles.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> VehicleDetails.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.Assignment2</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Superclass Method Reuse</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> VehicleDetails.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-vehicle')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="VehicleDetails.java" download="VehicleDetails.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-vehicle" class="language-java">package com.java.Assignment2;
+
+class Vehicle {
+    void start() {
+        System.out.println("Vehicle Started");
+    }
+
+    void stop() {
+        System.out.println("Vehicle Stopped");
+    }
+}
+
+class Car extends Vehicle {
+    void displayType() {
+        System.out.println("Type: Car");
+    }
+}
+
+class Bike extends Vehicle {
+    void displayType() {
+        System.out.println("Type: Bike");
+    }
+}
+
+public class VehicleDetails {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.displayType();
+        car.start();
+        car.stop();
+
+        System.out.println();
+
+        Bike bike = new Bike();
+        bike.displayType();
+        bike.start();
+        bike.stop();
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . VehicleDetails.java && java com.java.Assignment2.VehicleDetails</span>
+Type: Car
+Vehicle Started
+Vehicle Stopped
+
+Type: Bike
+Vehicle Started
+Vehicle Stopped</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 Surya | Java Backend Development • Java Inheritance Assignments
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">Code copied to clipboard!</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.program-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const targetView = document.getElementById(tabId);
+      if (targetView) {
+        targetView.classList.add('active');
+      }
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      const tabs = ['employee', 'vehicle'];
+      const index = tabs.indexOf(tabId);
+      if (index !== -1 && buttons[index]) {
+        buttons[index].classList.add('active');
+      }
+
+      window.location.hash = tabId;
+    }
+
+    function copyCode(elementId) {
+      const codeElement = document.getElementById(elementId);
+      if (codeElement) {
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+          showToast('Code copied to clipboard!');
+        }).catch(err => {
+          showToast('Failed to copy code.');
+        });
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    function handleRoute() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileParam = urlParams.get('file');
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      const target = fileParam ? fileParam.toLowerCase() : hash;
+      
+      const validTabs = ['employee', 'vehicle'];
+      if (target && validTabs.includes(target)) {
+        switchTab(target);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleRoute);
+    window.addEventListener('hashchange', handleRoute);
+  </script>
+</body>
+</html>

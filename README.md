@@ -26,7 +26,12 @@ Welcome to my Java Full Stack Backend course repository!
 - [`StudentGrade.java`](Control%20Statement/StudentGrade.java) — Range-based student grade evaluation with boundary validation.
 - 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/Control%20Statement/index.html)
 
-### 3. [Java Methods Assignments (`Method/`)](Method/)
+### 3. [Java Inheritance Assignments (`Inheritance/`)](Inheritance/)
+- [`EmployeeDetails.java`](Inheritance/EmployeeDetails.java) — Hierarchical inheritance with `Employee` base class and `Developer` / `Tester` subclasses.
+- [`VehicleDetails.java`](Inheritance/VehicleDetails.java) — Method and behavior inheritance with `Vehicle` base class and `Car` / `Bike` subclasses.
+- 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/Inheritance/index.html)
+
+### 4. [Java Methods Assignments (`Method/`)](Method/)
 - [`EmployeeSalary.java`](Method/EmployeeSalary.java) — Calculates gross and net salary using parameterized methods.
 - [`StudentResult.java`](Method/StudentResult.java) — Calculates 5-subject total, average, and letter grade evaluation.
 - [`ShoppingCart.java`](Method/ShoppingCart.java) — Calculates order total, tiered membership discount (Gold/Silver/Regular), and final bill.
@@ -34,7 +39,7 @@ Welcome to my Java Full Stack Backend course repository!
 - [`BankOperations.java`](Method/BankOperations.java) — Stateful bank operations (deposit, withdraw, balance check, transaction summary).
 - 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/Method/index.html)
 
-### 4. [Java Array Assignments (`assignment/`)](assignment/)
+### 5. [Java Array Assignments (`assignment/`)](assignment/)
 - [`ArrayAverage.java`](assignment/ArrayAverage.java) — Computes sum and average of user-inputted array elements.
 - [`EvenOddCount.java`](assignment/EvenOddCount.java) — Counts occurrences of even and odd numbers.
 - [`LargestNumber.java`](assignment/LargestNumber.java) — Finds the maximum element in an array.
