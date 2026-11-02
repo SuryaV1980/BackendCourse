@@ -26,6 +26,14 @@ Welcome to my Java Full Stack Backend course repository!
 - [`SmallestNumber.java`](assignment/SmallestNumber.java) — Finds the minimum element in an array.
 - 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/assignment/index.html)
 
+### 3. [Java Methods Assignments (`Method/`)](Method/)
+- [`EmployeeSalary.java`](Method/EmployeeSalary.java) — Calculates gross and net salary using parameterized methods.
+- [`StudentResult.java`](Method/StudentResult.java) — Calculates 5-subject total, average, and letter grade evaluation.
+- [`ShoppingCart.java`](Method/ShoppingCart.java) — Calculates order total, tiered membership discount (Gold/Silver/Regular), and final bill.
+- [`ElectricityBill.java`](Method/ElectricityBill.java) — Progressive slab energy rate calculation and fixed charge addition.
+- [`BankOperations.java`](Method/BankOperations.java) — Stateful bank operations (deposit, withdraw, balance check, transaction summary).
+- 🔗 **Interactive Viewer:** [View Online](https://suryav1980.github.io/BackendCourse/Method/index.html)
+
 ---
 
 Developed by **Surya** • Java Backend Development

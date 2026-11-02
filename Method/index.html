@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Methods Assignment | Surya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: white;
+      background: #2563eb;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+    .nav-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+    .header-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .header-card h1 {
+      font-size: 32px;
+      color: #60a5fa;
+      margin-bottom: 10px;
+    }
+    .header-card p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .tabs-wrapper {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      scrollbar-width: thin;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .tab-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #60a5fa;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    .program-view {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .program-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .info-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 25px;
+    }
+    .info-card h2 {
+      font-size: 20px;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+    .info-card p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .info-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tag {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .code-window {
+      background: #1e1e1e;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .window-header {
+      background: #2d3748;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #475569;
+    }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .file-name {
+      font-family: 'Fira Code', monospace;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .window-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .action-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .action-btn:hover {
+      background: #2563eb;
+    }
+    .action-btn.secondary {
+      background: #475569;
+    }
+    .action-btn.secondary:hover {
+      background: #64748b;
+    }
+    pre[class*="language-"] {
+      margin: 0 !important;
+      padding: 20px !important;
+      background: #1e1e1e !important;
+      font-family: 'Fira Code', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+    code[class*="language-"] {
+      font-family: 'Fira Code', monospace !important;
+    }
+    .terminal-window {
+      background: #090d16;
+      border-radius: 14px;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .terminal-header {
+      background: #111827;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-bottom: 1px solid #1f2937;
+    }
+    .terminal-body {
+      padding: 18px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #4ade80;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .terminal-prompt {
+      color: #60a5fa;
+    }
+    .footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="top-nav">
+      <a href="../index/main.html" class="nav-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to All Projects
+      </a>
+      <a href="../index.html" class="nav-btn">
+        <i class="fa-solid fa-house"></i> Portfolio Home
+      </a>
+    </div>
+
+    <div class="header-card">
+      <h1><i class="fa-brands fa-java"></i> Java Methods Assignments</h1>
+      <p>Source code written by Surya for Backend Course Java Methods Assignment. Demonstrating method definition, return types, parameter passing, business calculation methods, and invoking methods from main().</p>
+    </div>
+
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" onclick="switchTab('employeesalary')">
+        <i class="fa-solid fa-money-bill-wave"></i> 1. Employee Salary
+      </button>
+      <button class="tab-btn" onclick="switchTab('studentresult')">
+        <i class="fa-solid fa-graduation-cap"></i> 2. Student Result
+      </button>
+      <button class="tab-btn" onclick="switchTab('shoppingcart')">
+        <i class="fa-solid fa-cart-shopping"></i> 3. Shopping Cart
+      </button>
+      <button class="tab-btn" onclick="switchTab('electricitybill')">
+        <i class="fa-solid fa-bolt"></i> 4. Electricity Bill
+      </button>
+      <button class="tab-btn" onclick="switchTab('bankoperations')">
+        <i class="fa-solid fa-building-columns"></i> 5. Banking Operations
+      </button>
+    </div>
+
+    <!-- 1. EMPLOYEE SALARY -->
+    <div id="employeesalary" class="program-view active">
+      <div class="info-card">
+        <h2>Assignment 1: Employee Monthly Salary Calculation</h2>
+        <p><strong>Scenario:</strong> A company wants to calculate the monthly salary of its employees, including allowances and deductions.</p>
+        <p><strong>Concepts:</strong> Methods with parameters and return types (<code>calculateSalary</code>, <code>calculateNetSalary</code>), void display method, and calling methods from <code>main()</code> without constructors.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> EmployeeSalary.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Parameterized Methods</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> EmployeeSalary.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-employeesalary')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="EmployeeSalary.java" download="EmployeeSalary.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-employeesalary" class="language-java">package com.java.assignment;
+
+public class EmployeeSalary {
+	String EmployeeName;
+	double basicSalary;
+	double allowance;
+	double deduction;
+	
+	double calculateSalary(double basicSalary, double allowance){
+		double TotalSalary = basicSalary + allowance;
+		return TotalSalary ;
+	};
+	double calculateNetSalary(double TotalSalary, double deduction){
+		double NetSalary = TotalSalary - deduction;
+		return NetSalary;
+		
+	};
+	void displayDetails(){
+		double TotalSalary = basicSalary + allowance;
+		
+		double NetSalary = TotalSalary - deduction;
+		
+		
+		 System.out.println("Employee Name: "   + EmployeeName);
+		 System.out.println("Employee Salary: " + TotalSalary);
+		 System.out.println("Employee Net Salary: " + NetSalary);
+	}
+	public static void main(String[] args) {
+		EmployeeSalary emp = new EmployeeSalary();
+		
+        emp.EmployeeName = "Yu Ji-Min";
+        
+        emp.basicSalary = 25000;
+       
+        emp.allowance = 5000;
+
+        emp.deduction = 2000; 
+        
+        emp.displayDetails();
+
+	}
+
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . EmployeeSalary.java && java com.java.assignment.EmployeeSalary</span>
+Employee Name: Yu Ji-Min
+Employee Salary: 30000.0
+Employee Net Salary: 28000.0</div>
+      </div>
+    </div>
+
+    <!-- 2. STUDENT RESULT -->
+    <div id="studentresult" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 2: Student Result & Grade Evaluation</h2>
+        <p><strong>Scenario:</strong> A college wants to calculate students' results based on five subject marks.</p>
+        <p><strong>Concepts:</strong> Multi-parameter method (<code>calculateTotal</code>), average calculation (<code>calculateAverage</code>), conditional grade decision returning String (<code>calculateGrade</code>: A, B, C, Fail).</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> StudentResult.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Conditional Method Return</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> StudentResult.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-studentresult')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="StudentResult.java" download="StudentResult.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-studentresult" class="language-java">package com.java.assignment;
+
+public class StudentResult {
+	String StudentName;
+	double sub1;
+	double sub2;
+	double sub3;
+	double sub4;
+	double sub5;
+	double TotalMark;
+	double AverageMark;
+	
+	double calculateTotal(double sub1, double sub2, double sub3, double sub4, double sub5) {
+		double TotalMark = sub1 + sub2 + sub3 + sub4 + sub5;
+		return TotalMark ;
+	}
+    double calculateAverage(double total) {
+        double averageMark = total / 5;
+        return averageMark;
+    }
+
+    String calculateGrade(double average) {
+        if (average >= 90 && average <= 100) {
+            return "A";
+        } else if (average >= 75 && average < 90) {
+            return "B";
+        } else if (average >= 50 && average < 74) {
+            return "C";
+        } else {
+            return "Fail";
+        }
+    }
+
+    void displayDetails(double total, double average, String grade) {
+        System.out.println("Student Name: " + StudentName);
+        System.out.println("Total: " + total);
+        System.out.println("Average: " + average);
+        System.out.println("Grade: " + grade);
+    }
+	public static void main(String[] args) {
+		
+		StudentResult StuResult = new StudentResult();
+		
+		StuResult.StudentName = "Kim Ji-woo";
+		StuResult.sub1 = 85;
+		StuResult.sub2 = 78;
+		StuResult.sub3 = 92;
+		StuResult.sub4 = 88;
+		StuResult.sub5 = 77;
+		
+		double total = StuResult.calculateTotal(StuResult.sub1, StuResult.sub2, StuResult.sub3,
+												StuResult.sub4, StuResult.sub5);
+
+		double average = StuResult.calculateAverage(total);
+		String grade = StuResult.calculateGrade(average);
+
+		StuResult.displayDetails(total, average, grade);
+
+		
+	}
+
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . StudentResult.java && java com.java.assignment.StudentResult</span>
+Student Name: Kim Ji-woo
+Total: 420.0
+Average: 84.0
+Grade: B</div>
+      </div>
+    </div>
+
+    <!-- 3. SHOPPING CART -->
+    <div id="shoppingcart" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 3: Shopping Cart & Membership Discount</h2>
+        <p><strong>Scenario:</strong> An online shopping application calculates the final bill based on the purchase amount and membership type.</p>
+        <p><strong>Concepts:</strong> Multi-product summation method (<code>calculateTotal</code>), tiered discount application (<code>calculateDiscount</code>: Gold 20%, Silver 10%, Regular 5%), and final bill calculation (<code>calculateFinalAmount</code>).</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> ShoppingCart.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Tiered Discount Method</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> ShoppingCart.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-shoppingcart')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="ShoppingCart.java" download="ShoppingCart.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-shoppingcart" class="language-java">package com.java.assignment;
+
+public class ShoppingCart {
+
+    double item1;
+    double item2;
+    double item3;
+    String membership;
+
+    double calculateTotal(double p1, double p2, double p3) {
+        double total = p1 + p2 + p3;
+        return total;
+    }
+
+    double calculateDiscount(double total, String membership) {
+        double discount = 0;
+        if (membership.equalsIgnoreCase("Gold")) {
+            discount = total * 0.20;
+        } else if (membership.equalsIgnoreCase("Silver")) {
+            discount = total * 0.10;
+        } else if (membership.equalsIgnoreCase("Regular")) {
+            discount = total * 0.05;
+        }
+        return discount;
+    }
+
+    double calculateFinalAmount(double total, double discount) {
+        double finalAmount = total - discount;
+        return finalAmount;
+    }
+
+    void displayDetails(double total, double discount, double finalAmount) {
+        System.out.println("Total Amount: " + total);
+        System.out.println("Discount: " + discount);
+        System.out.println("Final Amount: " + finalAmount);
+    }
+
+    public static void main(String[] args) {
+        ShoppingCart cart = new ShoppingCart();
+
+        cart.item1 = 2000;
+        cart.item2 = 1500;
+        cart.item3 = 500;
+        cart.membership = "Gold";
+
+        double total = cart.calculateTotal(cart.item1, cart.item2, cart.item3);
+        double discount = cart.calculateDiscount(total, cart.membership);
+        double finalAmount = cart.calculateFinalAmount(total, discount);
+
+        cart.displayDetails(total, discount, finalAmount);
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . ShoppingCart.java && java com.java.assignment.ShoppingCart</span>
+Total Amount: 4000.0
+Discount: 800.0
+Final Amount: 3200.0</div>
+      </div>
+    </div>
+
+    <!-- 4. ELECTRICITY BILL -->
+    <div id="electricitybill" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 4: Progressive Electricity Bill Calculation</h2>
+        <p><strong>Scenario:</strong> An electricity board calculates a household bill based on units consumed using progressive slabs.</p>
+        <p><strong>Concepts:</strong> Progressive tiered calculation method (<code>calculateBill</code>: 1st 100 @ ₹2, next 100 @ ₹3, remainder @ ₹5), fixed surcharge method (<code>addFixedCharge</code>: +₹50), and summary display.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> ElectricityBill.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Progressive Slab Method</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> ElectricityBill.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-electricitybill')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="ElectricityBill.java" download="ElectricityBill.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-electricitybill" class="language-java">package com.java.assignment;
+
+public class ElectricityBill {
+
+    int units;
+
+    double calculateBill(int units) {
+        double bill = 0;
+        if (units <= 100) {
+            bill = units * 2;
+        } else if (units <= 200) {
+            bill = (100 * 2) + ((units - 100) * 3);
+        } else {
+            bill = (100 * 2) + (100 * 3) + ((units - 200) * 5);
+        }
+        return bill;
+    }
+
+    double addFixedCharge(double billAmount) {
+        double finalBill = billAmount + 50;
+        return finalBill;
+    }
+
+    void displayDetails(double energyCharge, double fixedCharge, double finalBill) {
+        System.out.println("Energy Charge: " + energyCharge);
+        System.out.println("Fixed Charge: " + fixedCharge);
+        System.out.println("Final Bill: " + finalBill);
+    }
+
+    public static void main(String[] args) {
+        ElectricityBill eb = new ElectricityBill();
+
+        eb.units = 250;
+
+        double energyCharge = eb.calculateBill(eb.units);
+        double finalBill = eb.addFixedCharge(energyCharge);
+        double fixedCharge = 50;
+
+        eb.displayDetails(energyCharge, fixedCharge, finalBill);
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . ElectricityBill.java && java com.java.assignment.ElectricityBill</span>
+Energy Charge: 750.0
+Fixed Charge: 50.0
+Final Bill: 800.0</div>
+      </div>
+    </div>
+
+    <!-- 5. BANKING OPERATIONS -->
+    <div id="bankoperations" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 5: Banking Operations (Deposit, Withdraw, Balance)</h2>
+        <p><strong>Scenario:</strong> A bank needs a simple application to perform deposits, withdrawals, and balance checks without using constructors.</p>
+        <p><strong>Concepts:</strong> Stateful transaction methods (<code>deposit</code>, <code>withdraw</code> with validation), status check method (<code>checkBalance</code>), and summary display (<code>displayTransactionSummary</code>).</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> BankOperations.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.assignment</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> State Updating Methods</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> BankOperations.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-bankoperations')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="BankOperations.java" download="BankOperations.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-bankoperations" class="language-java">package com.java.assignment;
+
+public class BankOperations {
+
+    double InitialBalance;
+    double DepositAmount;
+    double WithdrawalAmount;
+
+    double deposit(double Balance, double DepositAmount) {
+        double UpdatedBalance = Balance + DepositAmount;
+        return UpdatedBalance;
+    }
+
+    double withdraw(double Balance, double WithdrawalAmount) {
+        if (Balance >= WithdrawalAmount) {
+            Balance = Balance - WithdrawalAmount;
+        } 
+        else {
+            System.out.println("Insufficient Balance");
+        }
+
+        return Balance;
+    }
+
+    void checkBalance(double Balance) {
+        System.out.println("Current Balance: " + Balance);
+    }
+
+    void displayTransactionSummary(double DepositAmount, double WithdrawalAmount, double FinalBalance) {
+        System.out.println("Deposited: " + DepositAmount);
+        System.out.println("Withdrawn: " + WithdrawalAmount);
+        System.out.println("Final Balance: " + FinalBalance);
+    }
+
+    public static void main(String[] args) {
+        BankOperations Bank = new BankOperations();
+
+        Bank.InitialBalance = 5000;
+        Bank.DepositAmount = 2000;
+        Bank.WithdrawalAmount = 1500;
+
+        System.out.println("Initial Balance: " + Bank.InitialBalance);
+
+        double Balance = Bank.deposit(
+            Bank.InitialBalance, Bank.DepositAmount
+        );
+
+        Balance = Bank.withdraw(Balance, Bank.WithdrawalAmount);
+
+        Bank.checkBalance(Balance);
+
+        Bank.displayTransactionSummary(
+            Bank.DepositAmount, Bank.WithdrawalAmount, Balance
+        );
+    }
+}</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . BankOperations.java && java com.java.assignment.BankOperations</span>
+Initial Balance: 5000.0
+Current Balance: 5500.0
+Deposited: 2000.0
+Withdrawn: 1500.0
+Final Balance: 5500.0</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 Surya | Java Backend Development • Java Methods Assignments
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">Code copied to clipboard!</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.program-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const targetView = document.getElementById(tabId);
+      if (targetView) {
+        targetView.classList.add('active');
+      }
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      const tabs = ['employeesalary', 'studentresult', 'shoppingcart', 'electricitybill', 'bankoperations'];
+      const index = tabs.indexOf(tabId);
+      if (index !== -1 && buttons[index]) {
+        buttons[index].classList.add('active');
+      }
+
+      window.location.hash = tabId;
+    }
+
+    function copyCode(elementId) {
+      const codeElement = document.getElementById(elementId);
+      if (codeElement) {
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+          showToast('Code copied to clipboard!');
+        }).catch(err => {
+          showToast('Failed to copy code.');
+        });
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    function handleRoute() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileParam = urlParams.get('file');
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      const target = fileParam ? fileParam.toLowerCase() : hash;
+      
+      const validTabs = ['employeesalary', 'studentresult', 'shoppingcart', 'electricitybill', 'bankoperations'];
+      if (target && validTabs.includes(target)) {
+        switchTab(target);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleRoute);
+    window.addEventListener('hashchange', handleRoute);
+  </script>
+</body>
+</html>
