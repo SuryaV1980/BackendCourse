@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java String Assignments | Surya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: white;
+      background: #2563eb;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    }
+    .nav-btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+    .header-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    .header-card h1 {
+      font-size: 32px;
+      color: #60a5fa;
+      margin-bottom: 10px;
+    }
+    .header-card p {
+      color: #94a3b8;
+      font-size: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .tabs-wrapper {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      scrollbar-width: thin;
+    }
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    .tab-btn.active {
+      background: #2563eb;
+      color: white;
+      border-color: #60a5fa;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+    .program-view {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    .program-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .info-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-left: 4px solid #3b82f6;
+      border-radius: 12px;
+      padding: 20px 25px;
+      margin-bottom: 25px;
+    }
+    .info-card h2 {
+      font-size: 20px;
+      color: #93c5fd;
+      margin-bottom: 8px;
+    }
+    .info-card p {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .info-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .tag {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .code-window {
+      background: #1e1e1e;
+      border-radius: 14px;
+      border: 1px solid #334155;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .window-header {
+      background: #2d3748;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #475569;
+    }
+    .window-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+    .file-name {
+      font-family: 'Fira Code', monospace;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .window-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .action-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .action-btn:hover {
+      background: #2563eb;
+    }
+    .action-btn.secondary {
+      background: #475569;
+    }
+    .action-btn.secondary:hover {
+      background: #64748b;
+    }
+    pre[class*="language-"] {
+      margin: 0 !important;
+      padding: 20px !important;
+      background: #1e1e1e !important;
+      font-family: 'Fira Code', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.6 !important;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+    code[class*="language-"] {
+      font-family: 'Fira Code', monospace !important;
+    }
+    .terminal-window {
+      background: #090d16;
+      border-radius: 14px;
+      border: 1px solid #1e293b;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .terminal-header {
+      background: #111827;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: #94a3b8;
+      border-bottom: 1px solid #1f2937;
+    }
+    .terminal-body {
+      padding: 18px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      color: #4ade80;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .terminal-prompt {
+      color: #60a5fa;
+    }
+    .footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="top-nav">
+      <a href="../index/main.html" class="nav-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to All Projects
+      </a>
+      <a href="../index.html" class="nav-btn">
+        <i class="fa-solid fa-house"></i> Portfolio Home
+      </a>
+    </div>
+
+    <div class="header-card">
+      <h1><i class="fa-brands fa-java"></i> Java String Manipulation Assignments</h1>
+      <p>Source code written by Surya for Backend Course Java String Assignment. Demonstrating character indexing (`charAt`), substring processing, string splitting (`split`), uniqueness scanning, and in-place word reversal.</p>
+    </div>
+
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" onclick="switchTab('findstring')">
+        <i class="fa-solid fa-magnifying-glass"></i> 1. First Non-Repeated Character
+      </button>
+      <button class="tab-btn" onclick="switchTab('duplicate')">
+        <i class="fa-solid fa-filter"></i> 2. Remove Duplicate Characters
+      </button>
+      <button class="tab-btn" onclick="switchTab('reverse')">
+        <i class="fa-solid fa-rotate-left"></i> 3. Reverse Words in Sentence
+      </button>
+    </div>
+
+    <!-- 1. FIND STRING (FIRST NON-REPEATED CHARACTER) -->
+    <div id="findstring" class="program-view active">
+      <div class="info-card">
+        <h2>Assignment 1: Find the First Non-Repeated Character</h2>
+        <p><strong>Scenario:</strong> Given an input string, identify and output the first character that appears exactly once across the entire sequence.</p>
+        <p><strong>String Manipulation Concept:</strong> Nested character frequency inspection using <code>charAt()</code> and <code>Character.toLowerCase()</code> to find unique characters without altering case semantics.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> FindString.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.Assignment2</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Character Frequency</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> FindString.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-findstring')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="FindString.java" download="FindString.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-findstring" class="language-java">package com.java.Assignment2;
+
+public class FindString {
+	public static void main(String[] args) {
+		String Input = "swiss";
+
+		for (int a = 0; a < Input.length(); a++) {
+			char ch = Input.charAt(a);
+			boolean isRepeated = false;
+
+			for (int b = 0; b < Input.length(); b++) {
+				if (a != b && Character.toLowerCase(ch) == Character.toLowerCase(Input.charAt(b))) {
+					isRepeated = true;
+					break;
+				}
+			}
+
+			if (!isRepeated) {
+				System.out.println(ch);
+				break;
+			}
+		}
+	}
+}
+//Q1. First Non-Repeated Character
+//
+//Write a Java program to find the first character that appears only once in a String.
+//
+//Input: swiss
+//
+//Expected Output: w</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . FindString.java && java com.java.Assignment2.FindString</span>
+w</div>
+      </div>
+    </div>
+
+    <!-- 2. DUPLICATE CHARACTER -->
+    <div id="duplicate" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 2: Remove Duplicate Characters Maintaining Order</h2>
+        <p><strong>Scenario:</strong> Filter an input string by removing all duplicate characters while strictly preserving the first appearance order of every character.</p>
+        <p><strong>String Manipulation Concept:</strong> Dynamic string concatenation with accumulator buffer checking (<code>Output.charAt(b)</code>) before appending new characters.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> DuplicateCharacter.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.Assignment2</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Deduplication Algorithm</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> DuplicateCharacter.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-duplicate')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="DuplicateCharacter.java" download="DuplicateCharacter.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-duplicate" class="language-java">package com.java.Assignment2;
+
+public class DuplicateCharacter {
+
+    public static void main(String[] args) {
+
+        String Input = "Programming";
+        String Output = "";
+
+        for (int a = 0; a < Input.length(); a++) {
+
+            boolean found = false;
+
+            for (int b = 0; b < Output.length(); b++) {
+                if (Input.charAt(a) == Output.charAt(b)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                Output += Input.charAt(a);
+            }
+        }
+
+        System.out.println(Output);
+    }
+}
+//Write a Java program to remove duplicate characters while maintaining the original order.
+//
+//Input: programming
+//
+//Expected Output: progamin</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . DuplicateCharacter.java && java com.java.Assignment2.DuplicateCharacter</span>
+Progamin</div>
+      </div>
+    </div>
+
+    <!-- 3. REVERSE WORDS -->
+    <div id="reverse" class="program-view">
+      <div class="info-card">
+        <h2>Assignment 3: Reverse Each Word in a Sentence</h2>
+        <p><strong>Scenario:</strong> Take an entire sentence and reverse the letters of each individual word without shifting word positions.</p>
+        <p><strong>String Manipulation Concept:</strong> Delimiter tokenization with <code>split(" ")</code> and reverse decrement loop (<code>b = words[a].length() - 1; b >= 0; b--</code>) for in-place token inversion.</p>
+        <div class="info-tags">
+          <span class="tag"><i class="fa-solid fa-file-code"></i> ReverseWords.java</span>
+          <span class="tag"><i class="fa-solid fa-box"></i> package com.java.Assignment2</span>
+          <span class="tag"><i class="fa-solid fa-circle-check"></i> Word Inversion</span>
+        </div>
+      </div>
+
+      <div class="code-window">
+        <div class="window-header">
+          <div class="window-controls">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="file-name"><i class="fa-brands fa-java" style="color: #ea580c;"></i> ReverseWords.java</span>
+          </div>
+          <div class="window-actions">
+            <button class="action-btn" onclick="copyCode('code-reverse')"><i class="fa-solid fa-copy"></i> Copy Code</button>
+            <a href="ReverseWords.java" download="ReverseWords.java" class="action-btn secondary"><i class="fa-solid fa-download"></i> Download .java</a>
+          </div>
+        </div>
+        <pre><code id="code-reverse" class="language-java">package com.java.Assignment2;
+
+public class ReverseWords {
+
+    public static void main(String[] args) {
+
+        String input = "Java is easy";
+        String[] words = input.split(" ");
+
+        for (int a = 0; a < words.length; a++) {
+
+            for (int b = words[a].length() - 1; b >= 0; b--) {
+                System.out.print(words[a].charAt(b));
+            }
+
+            if (a < words.length - 1) {
+                System.out.print(" ");
+            }
+        }
+        System.out.println();
+    }
+}
+//Write a Java program to reverse each word in a sentence without changing the order of the words.
+//
+//Input: Java is easy
+//
+//Expected Output: avaJ si ysae</code></pre>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <i class="fa-solid fa-terminal"></i> Console Output (Verified Execution)
+        </div>
+        <div class="terminal-body"><span class="terminal-prompt">$ javac -d . ReverseWords.java && java com.java.Assignment2.ReverseWords</span>
+avaJ si ysae</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2026 Surya | Java Backend Development • Java String Assignments
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">Code copied to clipboard!</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.program-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const targetView = document.getElementById(tabId);
+      if (targetView) {
+        targetView.classList.add('active');
+      }
+
+      const buttons = document.querySelectorAll('.tab-btn');
+      const tabs = ['findstring', 'duplicate', 'reverse'];
+      const index = tabs.indexOf(tabId);
+      if (index !== -1 && buttons[index]) {
+        buttons[index].classList.add('active');
+      }
+
+      window.location.hash = tabId;
+    }
+
+    function copyCode(elementId) {
+      const codeElement = document.getElementById(elementId);
+      if (codeElement) {
+        navigator.clipboard.writeText(codeElement.innerText).then(() => {
+          showToast('Code copied to clipboard!');
+        }).catch(err => {
+          showToast('Failed to copy code.');
+        });
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    function handleRoute() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const fileParam = urlParams.get('file');
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      const target = fileParam ? fileParam.toLowerCase() : hash;
+      
+      const validTabs = ['findstring', 'duplicate', 'reverse'];
+      if (target && validTabs.includes(target)) {
+        switchTab(target);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', handleRoute);
+    window.addEventListener('hashchange', handleRoute);
+  </script>
+</body>
+</html>
